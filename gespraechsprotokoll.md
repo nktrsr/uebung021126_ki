@@ -61,10 +61,36 @@ Für die fünf Variablen sind die Felder im DWD-Datensatz vorhanden. In der CSV 
 
 **Ergebnis:** Dieses Protokoll wurde erstellt.
 
+### 10. Tagesmitteltemperatur je Jahr visualisieren
+
+**Anliegen:** Die tägliche Durchschnittstemperatur als Liniendiagramm darstellen, mit einer farbigen Linie je Jahr.
+
+**Ergebnis:** Im DWD-Notebook wurde eine saisonale Überlagerung der Tagesmitteltemperaturen ergänzt. Das unvollständige Jahr 2026 ist bis zum letzten verfügbaren Messtag dargestellt.
+
+### 11. Tagesmitteltemperatur prognostizieren
+
+**Anliegen:** Ein KI-Modell erstellen, das aus den fünf vorherigen Tagesmitteltemperaturen und dem Jahrestag (1–365) die Temperatur des Folgetags schätzt. Trainingsdaten, Modell, Genauigkeit und jeden Schritt im Notebook erklären.
+
+**Ergebnis:** Die Trainingsstruktur enthält 2.469 gültige Beispiele. Schalttage werden als Zieltag ausgelassen; fehlende Werte führen zum Ausschluss der betroffenen Beispiele. Ein neuronales Netz (`MLPRegressor`) wurde mit Daten bis 2024 trainiert und ausschließlich auf 2025 getestet. Die Persistenz-Baseline nimmt „morgen wie gestern“ an.
+
+Auf dem Testjahr 2025 erreichte das Netz MAE 1,589 °C, RMSE 2,029 °C und $R^2=0{,}919$. Die Baseline erreichte MAE 1,760 °C. Anschließend wurde für den 02.11.2026 aus den fünf letzten DWD-Messwerten eine Tagesmitteltemperatur von 8,0 °C prognostiziert. Dies ist ein Lernmodell, keine professionelle Wettervorhersage.
+
+### 12. Trainingsgenauigkeit anschaulich bewerten
+
+**Anliegen:** Trainingsgenauigkeit analysieren und in Graphen zeigen.
+
+**Ergebnis:** Die Metriktabelle enthält nun Training, Test und Baseline. Zwei Diagnosegrafiken vergleichen Vorhersage und Messwert sowie Residuenverteilung und Residuenverlauf. Der Trainings-MAE (1,585 °C) und Test-MAE (1,589 °C) sind ähnlich; das deutet in diesem Split nicht auf deutliches Overfitting hin. Das mittlere Testresiduum beträgt −0,03 °C. Die Bewertung basiert allerdings nur auf einem Testjahr.
+
+### 13. Protokoll automatisch fortschreiben
+
+**Anliegen:** Das Gesprächsprotokoll nach jedem abgeschlossenen Prompt automatisch ergänzen.
+
+**Ergebnis:** Als dauerhafte Arbeitspräferenz gespeichert: Nach künftigen abgeschlossenen Aufgaben dieses Protokoll chronologisch um Anliegen und Ergebnisse ergänzen.
+
 ## Dateien
 
 - [jupyter_einstieg.ipynb](jupyter_einstieg.ipynb): Jupyter-Einführung und Python-Beispiele
 - [berlin_wetteranalyse.ipynb](berlin_wetteranalyse.ipynb): Open-Meteo- und DWD-Vergleich für 2021–2025
-- [dwd_berlin_wetterdaten_2020_heute.ipynb](dwd_berlin_wetterdaten_2020_heute.ipynb): DWD-Download und Datenverfügbarkeitsprüfung
+- [dwd_berlin_wetterdaten_2020_heute.ipynb](dwd_berlin_wetterdaten_2020_heute.ipynb): DWD-Download, Datenprüfung, Temperaturdiagramm, Prognosemodell und Modellgüte
 - [dwd_berlin_dahlem_tagesdaten_2020_bis_aktuell.csv](dwd_berlin_dahlem_tagesdaten_2020_bis_aktuell.csv): tägliche DWD-Rohdaten für Berlin-Dahlem
 - [berlin_dwd_openmeteo_monatsvergleich_2021-2025.png](berlin_dwd_openmeteo_monatsvergleich_2021-2025.png): Monatsvergleich beider Wetterquellen
